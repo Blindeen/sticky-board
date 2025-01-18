@@ -1,0 +1,25 @@
+.note {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 105px;
+    width: 105px;
+    padding: 0.3rem;
+    background-color: #ffeb3b;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+        rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.noteTextInput {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    resize: none;
+    overflow: hidden;
+
+    &:focus-visible {
+        outline: none;
+    }
+}
