@@ -1,7 +1,7 @@
 interface Note {
     id: number;
     text: string;
-    position: {
+    leftCorner: {
         x: number;
         y: number;
     };

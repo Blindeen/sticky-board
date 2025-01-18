@@ -11,14 +11,14 @@ const Board = () => {
 
     const addNoteHandler = () => {
         const { clientHeight, clientWidth } = boardRef.current!;
-        const newCoordinates = drawCoordinates(
+        const leftCornerCoordinates = drawCoordinates(
             clientWidth - 114.6,
             clientHeight - 114.6
         );
         const newNote: Note = {
             id: notes.length + 1,
             text: '',
-            position: newCoordinates,
+            leftCorner: leftCornerCoordinates,
         };
         setNotes((prevNotes) => [...prevNotes, newNote]);
     };
@@ -33,11 +33,11 @@ const Board = () => {
                 +
             </button>
             <div className={styles.logo}>
-                <span className={styles.logoText}>Sticky Board</span>
+                <span className={styles.logoText}>Sticky board</span>
                 <span className={styles.logoNote}></span>
             </div>
-            {notes.map(({ id, text, position }) => (
-                <NoteComponent key={id} text={text} position={position} />
+            {notes.map(({ id, text, leftCorner }) => (
+                <NoteComponent key={id} text={text} leftCorner={leftCorner} />
             ))}
         </div>
     );

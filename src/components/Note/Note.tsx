@@ -4,15 +4,15 @@ import styles from './note.module.css';
 
 interface NoteProps {
     text: string;
-    position: {
+    leftCorner: {
         x: number;
         y: number;
     };
 }
 
-const Note = ({ text, position }: NoteProps) => {
+const Note = ({ text, leftCorner }: NoteProps) => {
     const [textValue, setTextValue] = useState(text);
-    const [coordinates, setCoordinates] = useState(position);
+    const [coordinates, setCoordinates] = useState(leftCorner);
 
     return (
         <div
