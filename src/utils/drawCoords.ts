@@ -1,4 +1,4 @@
-const drawCoordinates = (maxX: number, maxY: number) => {
+const drawCoords = (maxX: number, maxY: number) => {
     let x = Math.floor(Math.random() * (maxX + 1));
     x = Math.min(Math.max(0, x), maxX);
 
@@ -8,4 +8,4 @@ const drawCoordinates = (maxX: number, maxY: number) => {
     return { x, y };
 };
 
-export { drawCoordinates };
+export { drawCoords };

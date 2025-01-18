@@ -1,10 +1,9 @@
+import { Coords } from '../interfaces';
+
 interface Note {
     id: number;
     text: string;
-    leftCorner: {
-        x: number;
-        y: number;
-    };
+    leftCornerCoords: Coords;
 }
 
 export type { Note };

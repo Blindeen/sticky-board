@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 
 import { Note as NoteComponent } from '../Note';
 import { Note } from '../../model/note.model';
-import { drawCoordinates } from '../../utils/drawCoordinates';
+import { drawCoords } from '../../utils/drawCoords';
 import styles from './board.module.css';
 
 const Board = () => {
@@ -11,14 +11,14 @@ const Board = () => {
 
     const addNoteHandler = () => {
         const { clientHeight, clientWidth } = boardRef.current!;
-        const leftCornerCoordinates = drawCoordinates(
+        const leftCornerCoords = drawCoords(
             clientWidth - 114.6,
             clientHeight - 114.6
         );
         const newNote: Note = {
             id: notes.length + 1,
             text: '',
-            leftCorner: leftCornerCoordinates,
+            leftCornerCoords: leftCornerCoords,
         };
         setNotes((prevNotes) => [...prevNotes, newNote]);
     };
@@ -36,8 +36,12 @@ const Board = () => {
                 <span className={styles.logoText}>Sticky board</span>
                 <span className={styles.logoNote}></span>
             </div>
-            {notes.map(({ id, text, leftCorner }) => (
-                <NoteComponent key={id} text={text} leftCorner={leftCorner} />
+            {notes.map(({ id, text, leftCornerCoords }) => (
+                <NoteComponent
+                    key={id}
+                    text={text}
+                    leftCornerCoords={leftCornerCoords}
+                />
             ))}
         </div>
     );
