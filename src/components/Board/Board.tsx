@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, DragEvent } from 'react';
 
 import { Note as NoteComponent } from '../Note';
 import { Note } from '../../model/note.model';
 import { drawCoords } from '../../utils/drawCoords';
+import { Coords } from '../../interfaces';
 import styles from './board.module.css';
 
 const Board = () => {
@@ -23,8 +24,27 @@ const Board = () => {
         setNotes((prevNotes) => [...prevNotes, newNote]);
     };
 
+    const moveNoteHandler = (noteId: number, leftCornerCoords: Coords) => {
+        setNotes((prevNotes) => {
+            const newNotes = [...prevNotes];
+            const note = newNotes.find(({ id }) => noteId === id);
+            if (note) {
+                note.leftCornerCoords = leftCornerCoords;
+            }
+            return newNotes;
+        });
+    };
+
+    const dragOverBoardHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+    };
+
     return (
-        <div className={styles.board} ref={boardRef}>
+        <div
+            className={styles.board}
+            ref={boardRef}
+            onDragOver={dragOverBoardHandler}
+        >
             <button
                 type='button'
                 className={styles.addButton}
@@ -39,8 +59,10 @@ const Board = () => {
             {notes.map(({ id, text, leftCornerCoords }) => (
                 <NoteComponent
                     key={id}
+                    id={id}
                     text={text}
                     leftCornerCoords={leftCornerCoords}
+                    onMoveNote={moveNoteHandler}
                 />
             ))}
         </div>
