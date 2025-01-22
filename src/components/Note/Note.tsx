@@ -13,12 +13,19 @@ interface NoteProps {
 const Note = ({ id, text, leftCornerCoords, onMoveNote }: NoteProps) => {
     const [textValue, setTextValue] = useState(text);
 
+    const noteMouseOffset: Coords = { x: 0, y: 0 };
+
     const onDragStartHandler = (e: DragEvent<HTMLDivElement>) => {
+        const { clientX, clientY } = e;
+        const { x, y } = leftCornerCoords;
+        noteMouseOffset.x = clientX - x;
+        noteMouseOffset.y = clientY - y;
         e.dataTransfer.effectAllowed = 'move';
     };
 
     const onDragEndHandler = (e: DragEvent<HTMLDivElement>) => {
-        const newLeftCornerCoords = { x: e.clientX, y: e.clientY };
+        const { x, y } = noteMouseOffset;
+        const newLeftCornerCoords = { x: e.clientX - x, y: e.clientY - y };
         onMoveNote(id, newLeftCornerCoords);
     };
 
