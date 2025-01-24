@@ -1,6 +1,6 @@
 import { useState, DragEvent, ChangeEvent } from 'react';
 
-import { Coords } from '../../interfaces';
+import { Coords } from '../../model/coords.model';
 import styles from './note.module.css';
 
 interface NoteProps {

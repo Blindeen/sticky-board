@@ -1,14 +1,30 @@
-import { useRef, useState, DragEvent } from 'react';
+import { useRef, useState, useEffect, DragEvent } from 'react';
 
 import { Note as NoteComponent } from '../Note';
 import { Note } from '../../model/note.model';
+import { Coords } from '../../model/coords.model';
+
 import { drawCoords } from '../../utils/drawCoords';
-import { Coords } from '../../interfaces';
+import {
+    setLocalStorageItem,
+    getLocalStorageItem,
+} from '../../utils/localStorage';
+
 import styles from './board.module.css';
 
 const Board = () => {
     const boardRef = useRef<HTMLDivElement>(null);
-    const [notes, setNotes] = useState<Note[]>([]);
+    const [notes, setNotes] = useState<Note[]>(() => {
+        const notesJSON = getLocalStorageItem('notes');
+        if (!notesJSON) {
+            return [];
+        }
+        return JSON.parse(notesJSON);
+    });
+
+    useEffect(() => {
+        setLocalStorageItem('notes', JSON.stringify(notes));
+    }, [notes]);
 
     const addNoteHandler = () => {
         const { clientHeight, clientWidth } = boardRef.current!;
