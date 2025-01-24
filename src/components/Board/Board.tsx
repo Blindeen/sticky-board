@@ -83,12 +83,10 @@ const Board = () => {
                 <span className={styles.logoText}>Sticky board</span>
                 <span className={styles.logoNote}></span>
             </div>
-            {notes.map(({ id, text, leftCornerCoords }) => (
+            {notes.map((note) => (
                 <NoteComponent
-                    key={id}
-                    id={id}
-                    text={text}
-                    leftCornerCoords={leftCornerCoords}
+                    {...note}
+                    key={note.id}
                     onMoveNote={moveNoteHandler}
                     onTextChange={updateNoteHandler}
                 />

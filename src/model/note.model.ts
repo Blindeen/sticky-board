@@ -1,4 +1,4 @@
-import { Coords } from '../interfaces';
+import { Coords } from '../model/coords.model';
 
 interface Note {
     id: number;
