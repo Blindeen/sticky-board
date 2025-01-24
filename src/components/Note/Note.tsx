@@ -1,4 +1,4 @@
-import { useState, DragEvent, ChangeEvent } from 'react';
+import { DragEvent, ChangeEvent } from 'react';
 
 import { Coords } from '../../model/coords.model';
 import styles from './note.module.css';
@@ -8,11 +8,16 @@ interface NoteProps {
     text: string;
     leftCornerCoords: Coords;
     onMoveNote: (id: number, coords: Coords) => void;
+    onTextChange: (id: number, text: string) => void;
 }
 
-const Note = ({ id, text, leftCornerCoords, onMoveNote }: NoteProps) => {
-    const [textValue, setTextValue] = useState(text);
-
+const Note = ({
+    id,
+    text,
+    leftCornerCoords,
+    onMoveNote,
+    onTextChange,
+}: NoteProps) => {
     const noteMouseOffset: Coords = { x: 0, y: 0 };
 
     const onDragStartHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -30,7 +35,7 @@ const Note = ({ id, text, leftCornerCoords, onMoveNote }: NoteProps) => {
     };
 
     const onTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setTextValue(e.target.value);
+        onTextChange(id, e.target.value);
     };
 
     const { x, y } = leftCornerCoords;
@@ -45,7 +50,7 @@ const Note = ({ id, text, leftCornerCoords, onMoveNote }: NoteProps) => {
         >
             <textarea
                 className={styles.noteTextArea}
-                value={textValue}
+                value={text}
                 onChange={onTextChangeHandler}
             />
         </div>

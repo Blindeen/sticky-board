@@ -51,6 +51,17 @@ const Board = () => {
         });
     };
 
+    const updateNoteHandler = (noteId: number, text: string) => {
+        setNotes((prevNotes) => {
+            const newNotes = [...prevNotes];
+            const note = newNotes.find(({ id }) => noteId === id);
+            if (note) {
+                note.text = text;
+            }
+            return newNotes;
+        });
+    };
+
     const dragOverBoardHandler = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
     };
@@ -79,6 +90,7 @@ const Board = () => {
                     text={text}
                     leftCornerCoords={leftCornerCoords}
                     onMoveNote={moveNoteHandler}
+                    onTextChange={updateNoteHandler}
                 />
             ))}
         </div>
