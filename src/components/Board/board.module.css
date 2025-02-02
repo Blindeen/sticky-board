@@ -11,32 +11,6 @@
     background-color: #c2a98f;
 }
 
-/* Logo styles */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-
-    opacity: 0.2;
-
-    user-select: none;
-}
-
-.logoText {
-    font-family: Gill Sans, sans-serif;
-    font-weight: bold;
-    font-size: 3rem;
-}
-
-.logoNote {
-    display: block;
-    height: 3rem;
-    width: 3rem;
-    background-color: yellow;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-        rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-}
-
 /* Add button styles */
 .addButton {
     position: absolute;
@@ -63,4 +37,16 @@
         transform: rotate(-45deg);
         transition: transform 0.3s;
     }
+}
+
+/* Bin styles */
+.bin {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+
+    height: 3rem;
+    width: 3rem;
+
+    font-size: 2.8rem;
 }

@@ -26,6 +26,7 @@ const Note = ({
         noteMouseOffset.x = clientX - x;
         noteMouseOffset.y = clientY - y;
         e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('noteId', id.toString());
     };
 
     const onDragEndHandler = (e: DragEvent<HTMLDivElement>) => {

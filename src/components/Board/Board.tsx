@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, DragEvent } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import { Note as NoteComponent } from '../Note';
 import { Note } from '../../model/note.model';
@@ -41,8 +41,8 @@ const Board = () => {
     };
 
     const moveNoteHandler = (noteId: number, leftCornerCoords: Coords) => {
-        setNotes((prevNotes) => {
-            const newNotes = [...prevNotes];
+        setNotes((oldNotes) => {
+            const newNotes = [...oldNotes];
             const note = newNotes.find(({ id }) => noteId === id);
             if (note) {
                 note.leftCornerCoords = leftCornerCoords;
@@ -52,8 +52,8 @@ const Board = () => {
     };
 
     const updateNoteHandler = (noteId: number, text: string) => {
-        setNotes((prevNotes) => {
-            const newNotes = [...prevNotes];
+        setNotes((oldNotes) => {
+            const newNotes = [...oldNotes];
             const note = newNotes.find(({ id }) => noteId === id);
             if (note) {
                 note.text = text;
@@ -62,16 +62,25 @@ const Board = () => {
         });
     };
 
-    const dragOverBoardHandler = (e: DragEvent<HTMLDivElement>) => {
-        e.preventDefault();
+    const deleteNoteHandler = (noteId: number) => {
+        setNotes((oldNotes) => oldNotes.filter(({ id }) => noteId !== id));
     };
 
     return (
         <div
             className={styles.board}
             ref={boardRef}
-            onDragOver={dragOverBoardHandler}
+            onDragOver={(e) => e.preventDefault()}
         >
+            <div
+                className={styles.bin}
+                onDrop={(e) => {
+                    const noteId = +e.dataTransfer.getData('noteId');
+                    deleteNoteHandler(noteId);
+                }}
+            >
+                B
+            </div>
             <button
                 type='button'
                 className={styles.addButton}
@@ -79,10 +88,6 @@ const Board = () => {
             >
                 +
             </button>
-            <div className={styles.logo}>
-                <span className={styles.logoText}>Sticky board</span>
-                <span className={styles.logoNote}></span>
-            </div>
             {notes.map((note) => (
                 <NoteComponent
                     {...note}
