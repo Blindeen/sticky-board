@@ -3,50 +3,20 @@
     position: relative;
     height: 100%;
     width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     background-color: #c2a98f;
 }
 
-/* Add button styles */
-.addButton {
+/* Plus icon styles */
+.plusIcon {
     position: absolute;
     top: 15px;
     right: 15px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 3rem;
-    width: 3rem;
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    font-size: 2.8rem;
-
     cursor: pointer;
-    user-select: none;
-
-    transition: transform 0.3s;
-
-    &:hover {
-        transform: rotate(-45deg);
-        transition: transform 0.3s;
-    }
 }
 
-/* Bin styles */
-.bin {
+/* Trash icon styles */
+.trashIcon {
     position: absolute;
     top: 15px;
     left: 15px;
-
-    height: 3rem;
-    width: 3rem;
-
-    font-size: 2.8rem;
 }

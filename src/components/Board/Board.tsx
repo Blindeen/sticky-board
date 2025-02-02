@@ -1,15 +1,15 @@
 import { useRef, useState, useEffect } from 'react';
 
+import { LuPlus, LuTrash } from 'react-icons/lu';
+
 import { Note as NoteComponent } from '../Note';
 import { Note } from '../../model/note.model';
 import { Coords } from '../../model/coords.model';
-
 import { drawCoords } from '../../utils/drawCoords';
 import {
     setLocalStorageItem,
     getLocalStorageItem,
 } from '../../utils/localStorage';
-
 import styles from './board.module.css';
 
 const Board = () => {
@@ -41,6 +41,7 @@ const Board = () => {
     };
 
     const moveNoteHandler = (noteId: number, leftCornerCoords: Coords) => {
+        console.log('move');
         setNotes((oldNotes) => {
             const newNotes = [...oldNotes];
             const note = newNotes.find(({ id }) => noteId === id);
@@ -72,22 +73,21 @@ const Board = () => {
             ref={boardRef}
             onDragOver={(e) => e.preventDefault()}
         >
-            <div
-                className={styles.bin}
+            <LuTrash
+                className={styles.trashIcon}
+                size={35}
                 onDrop={(e) => {
-                    const noteId = +e.dataTransfer.getData('noteId');
-                    deleteNoteHandler(noteId);
+                    const noteId = e.dataTransfer.getData('noteId');
+                    if (noteId) {
+                        deleteNoteHandler(+noteId);
+                    }
                 }}
-            >
-                B
-            </div>
-            <button
-                type='button'
-                className={styles.addButton}
+            />
+            <LuPlus
+                className={styles.plusIcon}
+                size={40}
                 onClick={addNoteHandler}
-            >
-                +
-            </button>
+            />
             {notes.map((note) => (
                 <NoteComponent
                     {...note}
