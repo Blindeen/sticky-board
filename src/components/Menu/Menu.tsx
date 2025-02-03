@@ -13,12 +13,18 @@ interface MenuProps {
 const Menu = ({ onAddNote, onDeleteNote, onDeleteNotes }: MenuProps) => {
     return (
         <div className={styles.menu}>
-            <LuPlus className={styles.plusIcon} size={40} onClick={onAddNote} />
-            <AiOutlineClear
-                className={styles.clearIcon}
-                size={40}
-                onClick={onDeleteNotes}
-            />
+            <div className={styles.buttonList}>
+                <LuPlus
+                    className={styles.plusIcon}
+                    size={40}
+                    onClick={onAddNote}
+                />
+                <AiOutlineClear
+                    className={styles.clearIcon}
+                    size={40}
+                    onClick={onDeleteNotes}
+                />
+            </div>
             <Trash onDeleteNote={onDeleteNote} />
         </div>
     );

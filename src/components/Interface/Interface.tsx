@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 
 import { Menu } from '../Menu';
-import { Note as NoteComponent } from '../Note';
+import { Board } from '../Board';
 import { Note } from '../../model/note.model';
 import { Coords } from '../../model/coords.model';
 import { drawCoords } from '../../utils/drawCoords';
@@ -62,7 +62,9 @@ const Interface = () => {
     };
 
     const deleteNoteHandler = (noteId: number) => {
-        setNotes((oldNotes) => oldNotes.filter(({ id }) => noteId !== id));
+        setNotes((oldNotes) => {
+            return oldNotes.filter(({ id }) => noteId !== id);
+        });
     };
 
     const deleteNotesHandler = () => {
@@ -76,21 +78,12 @@ const Interface = () => {
                 onDeleteNote={deleteNoteHandler}
                 onDeleteNotes={deleteNotesHandler}
             />
-            <div
-                className={styles.board}
+            <Board
                 ref={boardRef}
-                onDragOver={(e) => e.preventDefault()}
-                onDragEnter={(e) => e.preventDefault()}
-            >
-                {notes.map((note) => (
-                    <NoteComponent
-                        {...note}
-                        key={note.id}
-                        onMoveNote={moveNoteHandler}
-                        onTextChange={updateNoteHandler}
-                    />
-                ))}
-            </div>
+                notes={notes}
+                onMoveNote={moveNoteHandler}
+                onUpdateNote={updateNoteHandler}
+            />
         </div>
     );
 };
