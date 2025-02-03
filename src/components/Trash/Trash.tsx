@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { FaTrash } from 'react-icons/fa';
+import { LuTrash } from 'react-icons/lu';
 import styles from './trash.module.css';
 
 interface TrashProps {
@@ -21,7 +21,8 @@ const Trash = ({ onDeleteNote }: TrashProps) => {
                 e.preventDefault();
                 setIsDropZoneActive(true);
             }}
-            onDragEnter={() => {
+            onDragEnter={(e) => {
+                e.preventDefault();
                 setIsDropZoneActive(true);
             }}
             onDragLeave={() => setIsDropZoneActive(false)}
@@ -29,11 +30,12 @@ const Trash = ({ onDeleteNote }: TrashProps) => {
                 const noteId = e.dataTransfer.getData('noteId');
                 if (noteId) {
                     onDeleteNote(+noteId);
+                    e.preventDefault();
                 }
                 setIsDropZoneActive(false);
             }}
         >
-            <FaTrash size={40} />
+            <LuTrash size={40} />
         </div>
     );
 };
