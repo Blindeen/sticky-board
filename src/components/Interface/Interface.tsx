@@ -1,9 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 
-import { LuPlus } from 'react-icons/lu';
-
+import { Menu } from '../Menu';
 import { Note as NoteComponent } from '../Note';
-import { Trash } from '../Trash';
 import { Note } from '../../model/note.model';
 import { Coords } from '../../model/coords.model';
 import { drawCoords } from '../../utils/drawCoords';
@@ -11,9 +9,9 @@ import {
     setLocalStorageItem,
     getLocalStorageItem,
 } from '../../utils/localStorage';
-import styles from './board.module.css';
+import styles from './interface.module.css';
 
-const Board = () => {
+const Interface = () => {
     const boardRef = useRef<HTMLDivElement>(null);
     const [notes, setNotes] = useState<Note[]>(() => {
         const notesJSON = getLocalStorageItem('notes');
@@ -67,28 +65,34 @@ const Board = () => {
         setNotes((oldNotes) => oldNotes.filter(({ id }) => noteId !== id));
     };
 
+    const deleteNotesHandler = () => {
+        setNotes([]);
+    };
+
     return (
-        <div
-            className={styles.board}
-            ref={boardRef}
-            onDragOver={(e) => e.preventDefault()}
-        >
-            <Trash onDeleteNote={deleteNoteHandler} />
-            <LuPlus
-                className={styles.plusIcon}
-                size={40}
-                onClick={addNoteHandler}
+        <div className={styles.interface}>
+            <Menu
+                onAddNote={addNoteHandler}
+                onDeleteNote={deleteNoteHandler}
+                onDeleteNotes={deleteNotesHandler}
             />
-            {notes.map((note) => (
-                <NoteComponent
-                    {...note}
-                    key={note.id}
-                    onMoveNote={moveNoteHandler}
-                    onTextChange={updateNoteHandler}
-                />
-            ))}
+            <div
+                className={styles.board}
+                ref={boardRef}
+                onDragOver={(e) => e.preventDefault()}
+                onDragEnter={(e) => e.preventDefault()}
+            >
+                {notes.map((note) => (
+                    <NoteComponent
+                        {...note}
+                        key={note.id}
+                        onMoveNote={moveNoteHandler}
+                        onTextChange={updateNoteHandler}
+                    />
+                ))}
+            </div>
         </div>
     );
 };
 
-export default Board;
+export default Interface;

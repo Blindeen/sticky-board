@@ -1,5 +1,7 @@
-/* Trash icon styles */
 .droppableArea {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
     transition: 0.3s;
 }
 
