@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
 
-import { LuPlus, LuTrash } from 'react-icons/lu';
+import { LuPlus } from 'react-icons/lu';
 
 import { Note as NoteComponent } from '../Note';
+import { Trash } from '../Trash';
 import { Note } from '../../model/note.model';
 import { Coords } from '../../model/coords.model';
 import { drawCoords } from '../../utils/drawCoords';
@@ -41,7 +42,6 @@ const Board = () => {
     };
 
     const moveNoteHandler = (noteId: number, leftCornerCoords: Coords) => {
-        console.log('move');
         setNotes((oldNotes) => {
             const newNotes = [...oldNotes];
             const note = newNotes.find(({ id }) => noteId === id);
@@ -73,16 +73,7 @@ const Board = () => {
             ref={boardRef}
             onDragOver={(e) => e.preventDefault()}
         >
-            <LuTrash
-                className={styles.trashIcon}
-                size={35}
-                onDrop={(e) => {
-                    const noteId = e.dataTransfer.getData('noteId');
-                    if (noteId) {
-                        deleteNoteHandler(+noteId);
-                    }
-                }}
-            />
+            <Trash onDeleteNote={deleteNoteHandler} />
             <LuPlus
                 className={styles.plusIcon}
                 size={40}

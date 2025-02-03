@@ -13,10 +13,3 @@
     right: 15px;
     cursor: pointer;
 }
-
-/* Trash icon styles */
-.trashIcon {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
