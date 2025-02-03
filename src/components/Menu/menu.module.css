@@ -15,9 +15,9 @@
 }
 
 .plusIcon,
-.trashIcon,
 .clearIcon {
     padding: 5px;
+    border-radius: 30%;
     cursor: pointer;
     transition: 0.3s;
 

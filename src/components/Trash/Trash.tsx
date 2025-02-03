@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, DragEvent } from 'react';
 
 import { LuTrash } from 'react-icons/lu';
 import styles from './trash.module.css';
@@ -10,6 +10,19 @@ interface TrashProps {
 const Trash = ({ onDeleteNote }: TrashProps) => {
     const [isDropZoneActive, setIsDropZoneActive] = useState(false);
 
+    const onDragOverEnterHandler = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDropZoneActive(true);
+    };
+
+    const onDropHandler = (e: DragEvent<HTMLDivElement>) => {
+        const noteId = e.dataTransfer.getData('noteId');
+        if (noteId) {
+            onDeleteNote(+noteId);
+        }
+        setIsDropZoneActive(false);
+    };
+
     const droppableAreaClassName = isDropZoneActive
         ? `${styles.droppableArea} ${styles.active}`
         : styles.droppableArea;
@@ -17,23 +30,10 @@ const Trash = ({ onDeleteNote }: TrashProps) => {
     return (
         <div
             className={droppableAreaClassName}
-            onDragOver={(e) => {
-                e.preventDefault();
-                setIsDropZoneActive(true);
-            }}
-            onDragEnter={(e) => {
-                e.preventDefault();
-                setIsDropZoneActive(true);
-            }}
+            onDragOver={onDragOverEnterHandler}
+            onDragEnter={onDragOverEnterHandler}
             onDragLeave={() => setIsDropZoneActive(false)}
-            onDrop={(e) => {
-                const noteId = e.dataTransfer.getData('noteId');
-                if (noteId) {
-                    onDeleteNote(+noteId);
-                    e.preventDefault();
-                }
-                setIsDropZoneActive(false);
-            }}
+            onDrop={onDropHandler}
         >
             <LuTrash size={40} />
         </div>
