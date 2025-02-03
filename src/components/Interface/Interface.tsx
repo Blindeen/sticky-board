@@ -27,9 +27,11 @@ const Interface = () => {
 
     const addNoteHandler = () => {
         const { clientHeight, clientWidth } = boardRef.current!;
+        console.log(clientHeight);
         const leftCornerCoords = drawCoords(
-            clientWidth - 140,
-            clientHeight - 140
+            window.innerWidth - clientWidth,
+            clientWidth - 160,
+            clientHeight - 160
         );
         const newNote: Note = {
             id: notes.length + 1,
