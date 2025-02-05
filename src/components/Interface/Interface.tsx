@@ -4,7 +4,6 @@ import { Menu } from '../Menu';
 import { Board } from '../Board';
 import { Note } from '../../model/note.model';
 import { Coords } from '../../model/coords.model';
-import { drawCoords } from '../../utils/drawCoords';
 import {
     setLocalStorageItem,
     getLocalStorageItem,
@@ -26,17 +25,10 @@ const Interface = () => {
     }, [notes]);
 
     const addNoteHandler = () => {
-        const { clientHeight, clientWidth } = boardRef.current!;
-        console.log(clientHeight);
-        const leftCornerCoords = drawCoords(
-            window.innerWidth - clientWidth,
-            clientWidth - 160,
-            clientHeight - 160
-        );
         const newNote: Note = {
-            id: notes.length + 1,
+            id: Date.now(),
             text: '',
-            leftCornerCoords: leftCornerCoords,
+            leftCornerCoords: { x: 5, y: 5 },
         };
         setNotes((prevNotes) => [...prevNotes, newNote]);
     };
