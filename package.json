@@ -1,6 +1,6 @@
 {
-    "homepage": "https://blindeen.github.io/sticky-board",
     "name": "sticky-board",
+    "homepage": "https://blindeen.github.io/sticky-board",
     "private": true,
     "version": "0.0.0",
     "type": "module",
