@@ -53,5 +53,5 @@ jobs:
             - name: Deploying to gh-pages
               uses: actions/deploy-pages@v4
               with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_dir: ./dist
+                  token: ${{ github.token }}
+                  artifact_name: production-files
