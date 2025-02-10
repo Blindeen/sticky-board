@@ -1,0 +1,27 @@
+dialog {
+    border: none;
+    border-radius: 10px;
+    background-color: #ffeb3b;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+        rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+button {
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: lightgray;
+
+    cursor: pointer;
+}
