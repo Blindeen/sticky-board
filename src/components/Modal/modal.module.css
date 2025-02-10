@@ -1,4 +1,4 @@
-dialog {
+.dialog {
     border: none;
     border-radius: 10px;
     background-color: #ffeb3b;
@@ -11,17 +11,41 @@ dialog {
     }
 }
 
-footer {
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.h2 {
+    margin: 0;
+}
+
+.footer {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
 }
 
-button {
+.button {
     border: none;
     border-radius: 15px;
-    padding: 10px;
-    background-color: lightgray;
-
+    padding: 10px 20px;
+    background-color: #4a90e2;
+    font-size: 1rem;
+    color: #ffffff;
     cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: #357abd;
+    }
+}
+
+.deleteButton {
+    background-color: #e53e3e;
+
+    &:hover {
+        background-color: #c53030;
+    }
 }
