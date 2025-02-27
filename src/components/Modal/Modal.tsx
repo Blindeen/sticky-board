@@ -1,5 +1,7 @@
 import { useRef, useEffect, KeyboardEvent } from 'react';
 
+import { IoClose } from 'react-icons/io5';
+
 import styles from './modal.module.css';
 
 interface ModalProps {
@@ -34,6 +36,13 @@ const Modal = ({ setIsOpen, onOk, isOpen }: ModalProps) => {
 
     return (
         <dialog className={styles.dialog} ref={dialogRef} onKeyDown={onKeyDown}>
+            <div className={styles.controls}>
+                <IoClose
+                    className={styles.closeIcon}
+                    size={30}
+                    onClick={onClose}
+                />
+            </div>
             <div className={styles.content}>
                 <header>
                     <h2 className={styles.h2}>Delete tasks</h2>

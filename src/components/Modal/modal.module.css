@@ -11,6 +11,15 @@
     }
 }
 
+.controls {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.closeIcon {
+    cursor: pointer;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -39,6 +48,10 @@
 
     &:hover {
         background-color: #357abd;
+    }
+
+    &:focus {
+        outline: none;
     }
 }
 
