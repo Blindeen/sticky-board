@@ -2,24 +2,44 @@
     position: absolute;
     left: 0;
     top: 0;
-    height: 140px;
-    width: 140px;
+    display: flex;
+    flex-direction: column;
+    height: 180px;
+    width: 180px;
     padding: 10px;
     background-color: #ffeb3b;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
         rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.noteTextArea {
-    height: 100%;
+.titleInput {
     width: 100%;
     padding: 0;
-    background-color: transparent;
     border: none;
+    background-color: transparent;
+    font-size: 1.1rem;
+    font-family: 'Poppins';
+
+    &:focus {
+        outline: none;
+    }
+}
+
+hr {
+    width: 100%;
+    border-color: black;
+}
+
+.descriptionTextArea {
+    flex-grow: 1;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background-color: transparent;
     resize: none;
     overflow: hidden;
-
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-family: 'Poppins';
 
     &:focus-visible {
         outline: none;

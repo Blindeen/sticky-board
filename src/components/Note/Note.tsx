@@ -32,8 +32,11 @@ const Note = ({ id, text, leftCornerCoords, onTextChange }: NoteProps) => {
             onDragStart={onDragStartHandler}
             draggable
         >
+            <input className={styles.titleInput} placeholder='Title' />
+            <hr />
             <textarea
-                className={styles.noteTextArea}
+                className={styles.descriptionTextArea}
+                placeholder='Description'
                 value={text}
                 onChange={onTextChangeHandler}
             />
