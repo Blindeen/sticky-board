@@ -2,7 +2,8 @@ import { Coords } from '../model/coords.model';
 
 interface Note {
     id: number;
-    text: string;
+    title: string;
+    description: string;
     leftCornerCoords: Coords;
 }
 

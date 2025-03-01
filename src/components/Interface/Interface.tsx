@@ -8,6 +8,7 @@ import {
     setLocalStorageItem,
     getLocalStorageItem,
 } from '../../utils/localStorage';
+import { NoteData } from '../../model/note-data.model';
 import styles from './interface.module.css';
 
 const Interface = () => {
@@ -27,7 +28,8 @@ const Interface = () => {
     const addNoteHandler = () => {
         const newNote: Note = {
             id: Date.now(),
-            text: '',
+            title: '',
+            description: '',
             leftCornerCoords: { x: 5, y: 5 },
         };
         setNotes((prevNotes) => [...prevNotes, newNote]);
@@ -44,12 +46,13 @@ const Interface = () => {
         });
     };
 
-    const updateNoteHandler = (noteId: number, text: string) => {
+    const updateNoteHandler = (noteId: number, data: NoteData) => {
         setNotes((oldNotes) => {
             const newNotes = [...oldNotes];
             const note = newNotes.find(({ id }) => noteId === id);
             if (note) {
-                note.text = text;
+                note.title = data.title;
+                note.description = data.description;
             }
             return newNotes;
         });

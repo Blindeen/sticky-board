@@ -3,12 +3,13 @@ import { forwardRef, DragEvent } from 'react';
 import { Note } from '../../model/note.model';
 import { Coords } from '../../model/coords.model';
 import { Note as NoteComponent } from '../Note';
+import { NoteData } from '../../model/note-data.model';
 import styles from './board.module.css';
 
 interface BoardProps {
     notes: Note[];
     onMoveNote: (id: number, leftCornerCoords: Coords) => void;
-    onUpdateNote: (id: number, text: string) => void;
+    onUpdateNote: (id: number, data: NoteData) => void;
 }
 
 const Board = forwardRef<HTMLDivElement, BoardProps>(
@@ -39,7 +40,7 @@ const Board = forwardRef<HTMLDivElement, BoardProps>(
                     <NoteComponent
                         {...note}
                         key={note.id}
-                        onTextChange={onUpdateNote}
+                        onContentChange={onUpdateNote}
                     />
                 ))}
             </div>

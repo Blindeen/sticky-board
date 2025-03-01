@@ -1,16 +1,24 @@
 import { DragEvent, ChangeEvent } from 'react';
 
 import { Coords } from '../../model/coords.model';
+import { NoteData } from '../../model/note-data.model';
 import styles from './note.module.css';
 
 interface NoteProps {
     id: number;
-    text: string;
+    title: string;
+    description: string;
     leftCornerCoords: Coords;
-    onTextChange: (id: number, text: string) => void;
+    onContentChange: (id: number, data: NoteData) => void;
 }
 
-const Note = ({ id, text, leftCornerCoords, onTextChange }: NoteProps) => {
+const Note = ({
+    id,
+    title,
+    description,
+    leftCornerCoords,
+    onContentChange,
+}: NoteProps) => {
     const onDragStartHandler = (e: DragEvent<HTMLDivElement>) => {
         const { x, y } = leftCornerCoords;
         const mouseOffset = { x: e.clientX - x, y: e.clientY - y };
@@ -19,8 +27,17 @@ const Note = ({ id, text, leftCornerCoords, onTextChange }: NoteProps) => {
         e.dataTransfer.setData('mouseOffset', JSON.stringify(mouseOffset));
     };
 
-    const onTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        onTextChange(id, e.target.value);
+    const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        onContentChange(id, {
+            title: e.target.value,
+            description: description,
+        });
+    };
+
+    const onDescriptionChangeHandler = (
+        e: ChangeEvent<HTMLTextAreaElement>
+    ) => {
+        onContentChange(id, { title: title, description: e.target.value });
     };
 
     const { x, y } = leftCornerCoords;
@@ -32,13 +49,18 @@ const Note = ({ id, text, leftCornerCoords, onTextChange }: NoteProps) => {
             onDragStart={onDragStartHandler}
             draggable
         >
-            <input className={styles.titleInput} placeholder='Title' />
+            <input
+                className={styles.titleInput}
+                placeholder='Title'
+                value={title}
+                onChange={onTitleChangeHandler}
+            />
             <hr />
             <textarea
                 className={styles.descriptionTextArea}
                 placeholder='Description'
-                value={text}
-                onChange={onTextChangeHandler}
+                value={description}
+                onChange={onDescriptionChangeHandler}
             />
         </div>
     );
