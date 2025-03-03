@@ -5,8 +5,11 @@ import { Note } from './model/note.model';
 import { NoteData } from './model/note-data.model';
 import { Coords } from './model/coords.model';
 
-interface NoteState {
+interface State {
     notes: Note[];
+}
+
+interface Actions {
     addNote: () => void;
     updateNote: (id: number, data: NoteData) => void;
     moveNote: (id: number, coords: Coords) => void;
@@ -14,7 +17,7 @@ interface NoteState {
     deleteNotes: () => void;
 }
 
-const useStore = create<NoteState>()(
+const useStore = create<State & Actions>()(
     persist(
         (set) => ({
             notes: [],
