@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Menu } from '../Menu';
 import { Board } from '../Board';
@@ -12,7 +12,6 @@ import { NoteData } from '../../model/note-data.model';
 import styles from './interface.module.css';
 
 const Interface = () => {
-    const boardRef = useRef<HTMLDivElement>(null);
     const [notes, setNotes] = useState<Note[]>(() => {
         const notesJSON = getLocalStorageItem('notes');
         if (!notesJSON) {
@@ -76,7 +75,6 @@ const Interface = () => {
                 onDeleteNotes={deleteNotesHandler}
             />
             <Board
-                ref={boardRef}
                 notes={notes}
                 onMoveNote={moveNoteHandler}
                 onUpdateNote={updateNoteHandler}
