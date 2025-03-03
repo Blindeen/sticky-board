@@ -1,18 +1,14 @@
 import { DragEvent } from 'react';
 
-import { Note } from '../../model/note.model';
+import { Note } from '../Note';
 import { Coords } from '../../model/coords.model';
-import { Note as NoteComponent } from '../Note';
-import { NoteData } from '../../model/note-data.model';
+import { useStore } from '../../store';
 import styles from './board.module.css';
 
-interface BoardProps {
-    notes: Note[];
-    onMoveNote: (id: number, leftCornerCoords: Coords) => void;
-    onUpdateNote: (id: number, data: NoteData) => void;
-}
+const Board = () => {
+    const notes = useStore((state) => state.notes);
+    const moveNote = useStore((state) => state.moveNote);
 
-const Board = ({ notes, onMoveNote, onUpdateNote }: BoardProps) => {
     const onDropHandler = (e: DragEvent<HTMLDivElement>) => {
         const noteId = e.dataTransfer.getData('noteId');
         if (noteId) {
@@ -23,7 +19,7 @@ const Board = ({ notes, onMoveNote, onUpdateNote }: BoardProps) => {
                 x: e.clientX - mouseOffset.x,
                 y: e.clientY - mouseOffset.y,
             };
-            onMoveNote(+noteId, newLeftCornerCoords);
+            moveNote(+noteId, newLeftCornerCoords);
         }
     };
 
@@ -35,11 +31,7 @@ const Board = ({ notes, onMoveNote, onUpdateNote }: BoardProps) => {
             onDrop={onDropHandler}
         >
             {notes.map((note) => (
-                <NoteComponent
-                    {...note}
-                    key={note.id}
-                    onContentChange={onUpdateNote}
-                />
+                <Note {...note} key={note.id} />
             ))}
         </div>
     );

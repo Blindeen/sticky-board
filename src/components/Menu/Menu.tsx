@@ -4,16 +4,12 @@ import { LuPlus } from 'react-icons/lu';
 import { AiOutlineClear } from 'react-icons/ai';
 import { Trash } from './Trash';
 import { Modal } from '../Modal';
+import { useStore } from '../../store';
 
 import styles from './menu.module.css';
 
-interface MenuProps {
-    onAddNote: () => void;
-    onDeleteNote: (id: number) => void;
-    onDeleteNotes: () => void;
-}
-
-const Menu = ({ onAddNote, onDeleteNote, onDeleteNotes }: MenuProps) => {
+const Menu = () => {
+    const addNote = useStore((state) => state.addNote);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
@@ -23,7 +19,7 @@ const Menu = ({ onAddNote, onDeleteNote, onDeleteNotes }: MenuProps) => {
                     <LuPlus
                         className={styles.plusIcon}
                         size={40}
-                        onClick={onAddNote}
+                        onClick={addNote}
                     />
                     <AiOutlineClear
                         className={styles.clearIcon}
@@ -31,13 +27,9 @@ const Menu = ({ onAddNote, onDeleteNote, onDeleteNotes }: MenuProps) => {
                         onClick={() => setIsModalOpen(true)}
                     />
                 </div>
-                <Trash onDeleteNote={onDeleteNote} />
+                <Trash />
             </div>
-            <Modal
-                setIsOpen={setIsModalOpen}
-                onOk={onDeleteNotes}
-                isOpen={isModalOpen}
-            />
+            <Modal setIsOpen={setIsModalOpen} isOpen={isModalOpen} />
         </>
     );
 };
