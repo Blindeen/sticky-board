@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { LuPlus } from 'react-icons/lu';
 import { AiOutlineClear } from 'react-icons/ai';
-import { Trash } from '../Trash';
+import { Trash } from './Trash';
 import { Modal } from '../Modal';
 
 import styles from './menu.module.css';
