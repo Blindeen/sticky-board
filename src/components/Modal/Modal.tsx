@@ -1,16 +1,16 @@
 import { useRef, useEffect, KeyboardEvent } from 'react';
 
 import { IoClose } from 'react-icons/io5';
-
+import { useStore } from '../../store';
 import styles from './modal.module.css';
 
 interface ModalProps {
     setIsOpen: (value: boolean) => void;
-    onOk: () => void;
     isOpen: boolean;
 }
 
-const Modal = ({ setIsOpen, onOk, isOpen }: ModalProps) => {
+const Modal = ({ setIsOpen, isOpen }: ModalProps) => {
+    const deleteNotes = useStore((state) => state.deleteNotes);
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const Modal = ({ setIsOpen, onOk, isOpen }: ModalProps) => {
     };
 
     const onDelete = () => {
-        onOk();
+        deleteNotes();
         onClose();
     };
 

@@ -1,7 +1,7 @@
 import { DragEvent, ChangeEvent } from 'react';
 
-import { Coords } from '../../model/coords.model';
-import { NoteData } from '../../model/note-data.model';
+import { Coords } from '../../../model/coords.model';
+import { useStore } from '../../../store';
 import styles from './note.module.css';
 
 interface NoteProps {
@@ -9,16 +9,11 @@ interface NoteProps {
     title: string;
     description: string;
     leftCornerCoords: Coords;
-    onContentChange: (id: number, data: NoteData) => void;
 }
 
-const Note = ({
-    id,
-    title,
-    description,
-    leftCornerCoords,
-    onContentChange,
-}: NoteProps) => {
+const Note = ({ id, title, description, leftCornerCoords }: NoteProps) => {
+    const updateNote = useStore((state) => state.updateNote);
+
     const onDragStartHandler = (e: DragEvent<HTMLDivElement>) => {
         const { x, y } = leftCornerCoords;
         const mouseOffset = { x: e.clientX - x, y: e.clientY - y };
@@ -28,7 +23,7 @@ const Note = ({
     };
 
     const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onContentChange(id, {
+        updateNote(id, {
             title: e.target.value,
             description: description,
         });
@@ -37,7 +32,7 @@ const Note = ({
     const onDescriptionChangeHandler = (
         e: ChangeEvent<HTMLTextAreaElement>
     ) => {
-        onContentChange(id, { title: title, description: e.target.value });
+        updateNote(id, { title: title, description: e.target.value });
     };
 
     const { x, y } = leftCornerCoords;

@@ -1,13 +1,11 @@
 import { useState, DragEvent } from 'react';
 
 import { LuTrash } from 'react-icons/lu';
+import { useStore } from '../../../store';
 import styles from './trash.module.css';
 
-interface TrashProps {
-    onDeleteNote: (id: number) => void;
-}
-
-const Trash = ({ onDeleteNote }: TrashProps) => {
+const Trash = () => {
+    const deleteNote = useStore((state) => state.deleteNote);
     const [isDropZoneActive, setIsDropZoneActive] = useState(false);
 
     const onDragOverEnterHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -18,7 +16,7 @@ const Trash = ({ onDeleteNote }: TrashProps) => {
     const onDropHandler = (e: DragEvent<HTMLDivElement>) => {
         const noteId = e.dataTransfer.getData('noteId');
         if (noteId) {
-            onDeleteNote(+noteId);
+            deleteNote(+noteId);
         }
         setIsDropZoneActive(false);
     };
@@ -30,7 +28,7 @@ const Trash = ({ onDeleteNote }: TrashProps) => {
     return (
         <div
             className={droppableAreaClassName}
-            onDragOver={onDragOverEnterHandler}
+            onDragOver={(e) => e.preventDefault()}
             onDragEnter={onDragOverEnterHandler}
             onDragLeave={() => setIsDropZoneActive(false)}
             onDrop={onDropHandler}
