@@ -1,6 +1,6 @@
 import { DragEvent } from 'react';
 
-import { Note } from '../Note';
+import { Note } from './Note';
 import { Coords } from '../../model/coords.model';
 import { useStore } from '../../store';
 import styles from './board.module.css';

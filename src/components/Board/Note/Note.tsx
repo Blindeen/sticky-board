@@ -1,7 +1,7 @@
 import { DragEvent, ChangeEvent } from 'react';
 
-import { Coords } from '../../model/coords.model';
-import { useStore } from '../../store';
+import { Coords } from '../../../model/coords.model';
+import { useStore } from '../../../store';
 import styles from './note.module.css';
 
 interface NoteProps {
