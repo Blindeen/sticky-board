@@ -22,7 +22,7 @@ const useStore = create<State & Actions>()(
         (set) => ({
             notes: [],
             addNote: () => {
-                const newNote: Note = {
+                const newNote = {
                     id: Date.now(),
                     title: '',
                     description: '',

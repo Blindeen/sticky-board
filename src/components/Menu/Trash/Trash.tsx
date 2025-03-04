@@ -28,7 +28,7 @@ const Trash = () => {
     return (
         <div
             className={droppableAreaClassName}
-            onDragOver={onDragOverEnterHandler}
+            onDragOver={(e) => e.preventDefault()}
             onDragEnter={onDragOverEnterHandler}
             onDragLeave={() => setIsDropZoneActive(false)}
             onDrop={onDropHandler}
