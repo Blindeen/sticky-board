@@ -1,6 +1,5 @@
 import { useState, DragEvent } from 'react';
 
-import { LuTrash } from 'react-icons/lu';
 import { useStore } from '../../../store';
 import styles from './trash.module.css';
 
@@ -32,9 +31,7 @@ const Trash = () => {
             onDragEnter={onDragOverEnterHandler}
             onDragLeave={() => setIsDropZoneActive(false)}
             onDrop={onDropHandler}
-        >
-            <LuTrash size={40} />
-        </div>
+        ></div>
     );
 };
 
