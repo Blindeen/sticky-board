@@ -3,7 +3,6 @@ import { useState, useEffect, DragEvent } from 'react';
 import { Coords } from '../../../model/coords.model';
 import { useStore } from '../../../store';
 import { useDebounce } from '../../../hooks/useDebounce';
-import { NoteData } from '../../../model/note-data.model';
 import styles from './note.module.css';
 
 interface NoteProps {
@@ -15,7 +14,7 @@ interface NoteProps {
 
 const Note = ({ id, title, description, leftCornerCoords }: NoteProps) => {
     const [data, setData] = useState({ title, description });
-    const debouncedData = useDebounce<NoteData>(data, 300);
+    const debouncedData = useDebounce(data, 300);
     const updateNote = useStore((state) => state.updateNote);
 
     useEffect(() => {
