@@ -1,7 +1,8 @@
-import { DragEvent, ChangeEvent } from 'react';
+import { useState, useEffect, DragEvent } from 'react';
 
 import { Coords } from '../../../model/coords.model';
 import { useStore } from '../../../store';
+import { useDebounce } from '../../../hooks/useDebounce';
 import styles from './note.module.css';
 
 interface NoteProps {
@@ -12,7 +13,13 @@ interface NoteProps {
 }
 
 const Note = ({ id, title, description, leftCornerCoords }: NoteProps) => {
+    const [data, setData] = useState({ title, description });
+    const debouncedData = useDebounce(data, 300);
     const updateNote = useStore((state) => state.updateNote);
+
+    useEffect(() => {
+        updateNote(id, debouncedData);
+    }, [updateNote, id, debouncedData]);
 
     const onDragStartHandler = (e: DragEvent<HTMLDivElement>) => {
         const { x, y } = leftCornerCoords;
@@ -22,40 +29,29 @@ const Note = ({ id, title, description, leftCornerCoords }: NoteProps) => {
         e.dataTransfer.setData('mouseOffset', JSON.stringify(mouseOffset));
     };
 
-    const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        updateNote(id, {
-            title: e.target.value,
-            description: description,
-        });
-    };
-
-    const onDescriptionChangeHandler = (
-        e: ChangeEvent<HTMLTextAreaElement>
-    ) => {
-        updateNote(id, { title: title, description: e.target.value });
-    };
-
-    const { x, y } = leftCornerCoords;
-
     return (
         <div
             className={styles.note}
-            style={{ top: y, left: x }}
+            style={{ top: leftCornerCoords.y, left: leftCornerCoords.x }}
             onDragStart={onDragStartHandler}
             draggable
         >
             <input
                 className={styles.titleInput}
                 placeholder='Title'
-                value={title}
-                onChange={onTitleChangeHandler}
+                value={data.title}
+                onChange={(e) =>
+                    setData({ title: e.target.value, description: description })
+                }
             />
             <hr />
             <textarea
                 className={styles.descriptionTextArea}
                 placeholder='Description'
-                value={description}
-                onChange={onDescriptionChangeHandler}
+                value={data.description}
+                onChange={(e) =>
+                    setData({ title: title, description: e.target.value })
+                }
             />
         </div>
     );
