@@ -5,11 +5,19 @@ import styles from './zoom.module.css';
 const Zoom = () => {
     return (
         <div className={styles.actions}>
-            <button type='button' onClick={() => console.log('Scaled up!')}>
+            <button
+                type='button'
+                className={styles.button}
+                onClick={() => console.log('Scaled up!')}
+            >
                 <FaPlus size={20} />
             </button>
             <span className={styles.scale}>100%</span>
-            <button type='button' onClick={() => console.log('Scaled down!')}>
+            <button
+                type='button'
+                className={styles.button}
+                onClick={() => console.log('Scaled down!')}
+            >
                 <FaMinus size={20} />
             </button>
         </div>
