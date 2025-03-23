@@ -25,14 +25,16 @@ const Board = () => {
 
     return (
         <div
-            className={styles.board}
+            className={styles.boardWrapper}
             onDragOver={(e) => e.preventDefault()}
             onDragEnter={(e) => e.preventDefault()}
             onDrop={onDropHandler}
         >
-            {notes.map((note) => (
-                <Note {...note} key={note.id} />
-            ))}
+            <div className={styles.board}>
+                {notes.map((note) => (
+                    <Note {...note} key={note.id} />
+                ))}
+            </div>
         </div>
     );
 };

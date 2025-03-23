@@ -1,6 +1,13 @@
-.board {
-    position: relative;
+.boardWrapper {
     height: 100%;
     width: 100%;
     overflow: hidden;
+}
+
+.board {
+    position: relative;
+    height: inherit;
+    width: inherit;
+    transform-origin: top left;
+    transform: scale(1.2);
 }
