@@ -3,6 +3,7 @@ import { DragEvent } from 'react';
 import { Note } from './Note';
 import { Coords } from '../../model/coords.model';
 import { useStore } from '../../store';
+import { Zoom } from './Zoom';
 import styles from './board.module.css';
 
 const Board = () => {
@@ -35,6 +36,7 @@ const Board = () => {
                     <Note {...note} key={note.id} />
                 ))}
             </div>
+            <Zoom />
         </div>
     );
 };

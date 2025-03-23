@@ -1,0 +1,35 @@
+.actions {
+    --offset: 25px;
+
+    position: absolute;
+    right: var(--offset);
+    bottom: var(--offset);
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    border-radius: 15%;
+    background-color: #b8a99a;
+}
+
+.scale {
+    font-size: 1rem;
+}
+
+button {
+    --size: 2.25rem;
+
+    background-color: transparent;
+    border: none;
+    border-radius: 15%;
+    height: var(--size);
+    width: var(--size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: #a38f7c;
+    }
+}
