@@ -12,7 +12,7 @@ const Zoom = () => {
             >
                 <FaPlus size={20} />
             </button>
-            <span className={styles.scale}>100%</span>
+            <span>100%</span>
             <button
                 type='button'
                 className={styles.button}
