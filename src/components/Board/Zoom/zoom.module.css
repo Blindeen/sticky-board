@@ -6,26 +6,16 @@
     bottom: var(--offset);
     display: flex;
     align-items: center;
-    column-gap: 10px;
+    column-gap: 8px;
     border-radius: 0.7rem;
     background-color: #8f6f50;
 }
 
-.actions :nth-child(1) {
-    border-radius: 0.7rem 0 0 0.7rem;
-}
-
-.actions :nth-child(3) {
-    border-radius: 0 0.7rem 0.7rem 0;
-}
-
 .button {
-    --size: 2.25rem;
-
     background-color: transparent;
     border: none;
-    height: var(--size);
-    width: var(--size);
+    height: 2.25rem;
+    min-width: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,4 +25,17 @@
 
 .button:hover {
     background-color: #a38f7c;
+}
+
+.actions .button:nth-child(1) {
+    border-radius: 0.7rem 0 0 0.7rem;
+}
+
+.actions .button:nth-child(2) {
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.actions .button:nth-child(3) {
+    border-radius: 0 0.7rem 0.7rem 0;
 }

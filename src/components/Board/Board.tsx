@@ -7,16 +7,23 @@ import { Zoom } from './Zoom';
 import styles from './board.module.css';
 
 const Board = () => {
-    const [scale, setScale] = useState(1);
+    const [scale, setScale] = useState(100);
     const notes = useStore((state) => state.notes);
     const moveNote = useStore((state) => state.moveNote);
 
     const upscaleHandler = () => {
-        setScale((prevScale) => prevScale + 0.5);
+        setScale((prevScale) => prevScale + 10);
     };
 
     const downscaleHandler = () => {
-        setScale((prevScale) => prevScale - 0.5);
+        setScale((prevScale) => {
+            const newScale = prevScale - 10;
+            return newScale >= 10 ? newScale : prevScale;
+        });
+    };
+
+    const resetScaleHandler = () => {
+        setScale(100);
     };
 
     const onDropHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -42,7 +49,7 @@ const Board = () => {
         >
             <div
                 className={styles.board}
-                style={{ transform: `scale(${scale})` }}
+                style={{ transform: `scale(${scale}%)` }}
             >
                 {notes.map((note) => (
                     <Note {...note} key={note.id} />
@@ -52,6 +59,7 @@ const Board = () => {
                 scale={scale}
                 onUpscale={upscaleHandler}
                 onDownscale={downscaleHandler}
+                onReset={resetScaleHandler}
             />
         </div>
     );

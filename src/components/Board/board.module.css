@@ -9,6 +9,4 @@
     position: relative;
     height: inherit;
     width: inherit;
-    transform-origin: top left;
-    transform: scale(1.2);
 }

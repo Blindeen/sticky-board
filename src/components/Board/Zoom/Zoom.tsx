@@ -6,18 +6,21 @@ interface ZoomProps {
     scale: number;
     onUpscale: () => void;
     onDownscale: () => void;
+    onReset: () => void;
 }
 
-const Zoom = ({ scale, onUpscale, onDownscale }: ZoomProps) => {
+const Zoom = ({ scale, onUpscale, onDownscale, onReset }: ZoomProps) => {
     return (
         <div className={styles.actions}>
-            <button type='button' className={styles.button} onClick={onUpscale}>
+            <button className={styles.button} type='button' onClick={onUpscale}>
                 <FaPlus size={20} />
             </button>
-            <span>{`${scale * 100}%`}</span>
+            <button className={styles.button} type='button' onClick={onReset}>
+                {`${scale}%`}
+            </button>
             <button
-                type='button'
                 className={styles.button}
+                type='button'
                 onClick={onDownscale}
             >
                 <FaMinus size={20} />
