@@ -2,21 +2,23 @@ import { FaPlus, FaMinus } from 'react-icons/fa6';
 
 import styles from './zoom.module.css';
 
-const Zoom = () => {
+interface ZoomProps {
+    scale: number;
+    onUpscale: () => void;
+    onDownscale: () => void;
+}
+
+const Zoom = ({ scale, onUpscale, onDownscale }: ZoomProps) => {
     return (
         <div className={styles.actions}>
-            <button
-                type='button'
-                className={styles.button}
-                onClick={() => console.log('Scaled up!')}
-            >
+            <button type='button' className={styles.button} onClick={onUpscale}>
                 <FaPlus size={20} />
             </button>
-            <span>100%</span>
+            <span>{`${scale * 100}%`}</span>
             <button
                 type='button'
                 className={styles.button}
-                onClick={() => console.log('Scaled down!')}
+                onClick={onDownscale}
             >
                 <FaMinus size={20} />
             </button>
