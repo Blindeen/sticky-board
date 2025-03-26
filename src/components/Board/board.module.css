@@ -9,4 +9,5 @@
     position: relative;
     height: inherit;
     width: inherit;
+    transition-duration: 0.2s;
 }
