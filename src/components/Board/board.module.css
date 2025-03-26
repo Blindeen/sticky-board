@@ -9,5 +9,6 @@
     position: relative;
     height: inherit;
     width: inherit;
+    transition-property: scale;
     transition-duration: 0.2s;
 }
