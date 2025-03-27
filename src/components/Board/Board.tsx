@@ -1,4 +1,4 @@
-import { DragEvent, useState, MouseEvent } from 'react';
+import { DragEvent, useState, useRef, MouseEvent } from 'react';
 
 import { Note } from './Note';
 import { Zoom } from './Zoom';
@@ -10,23 +10,23 @@ import styles from './board.module.css';
 const Board = () => {
     const [scale, setScale] = useState(100);
     const [isGrabbed, setIsGrabbed] = useState(false);
-    const [translate, setTranslate] = useState({ x: 0, y: 0 });
+    const translateRef = useRef({ x: 0, y: 0 });
 
     const notes = useStore((state) => state.notes);
     const moveNote = useStore((state) => state.moveNote);
 
-    const upscaleHandler = () => {
+    const onUpscaleHandler = () => {
         setScale((prevScale) => prevScale + 10);
     };
 
-    const downscaleHandler = () => {
+    const onDownscaleHandler = () => {
         setScale((prevScale) => {
             const newScale = prevScale - 10;
             return newScale >= 10 ? newScale : prevScale;
         });
     };
 
-    const resetScaleHandler = () => {
+    const onResetScaleHandler = () => {
         setScale(100);
     };
 
@@ -58,10 +58,9 @@ const Board = () => {
 
     const onMouseMoveHandler = (e: MouseEvent<HTMLDivElement>) => {
         if (isGrabbed) {
-            setTranslate((prevValue) => ({
-                x: prevValue.x + e.movementX,
-                y: prevValue.y + e.movementY,
-            }));
+            translateRef.current.x += e.movementX;
+            translateRef.current.y += e.movementY;
+            e.currentTarget.style.translate = `${translateRef.current.x}px ${translateRef.current.y}px`;
         }
     };
 
@@ -71,7 +70,6 @@ const Board = () => {
                 className={styles.board}
                 style={{
                     scale: `${scale}%`,
-                    translate: `${translate.x}px ${translate.y}px`,
                     cursor: isGrabbed ? 'grabbing' : 'default',
                 }}
                 onDragOver={(e) => e.preventDefault()}
@@ -87,9 +85,9 @@ const Board = () => {
             </div>
             <Zoom
                 scale={scale}
-                onUpscale={upscaleHandler}
-                onDownscale={downscaleHandler}
-                onReset={resetScaleHandler}
+                onUpscale={onUpscaleHandler}
+                onDownscale={onDownscaleHandler}
+                onReset={onResetScaleHandler}
             />
         </div>
     );
