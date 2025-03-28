@@ -10,7 +10,7 @@ import styles from './board.module.css';
 const Board = () => {
     const [scale, setScale] = useState(100);
     const [isGrabbed, setIsGrabbed] = useState(false);
-    const translateRef = useRef({ x: 0, y: 0 });
+    const boardWrapperRef = useRef<HTMLDivElement | null>(null);
 
     const notes = useStore((state) => state.notes);
     const moveNote = useStore((state) => state.moveNote);
@@ -58,30 +58,33 @@ const Board = () => {
 
     const onMouseMoveHandler = (e: MouseEvent<HTMLDivElement>) => {
         if (isGrabbed) {
-            translateRef.current.x += e.movementX;
-            translateRef.current.y += e.movementY;
-            e.currentTarget.style.translate = `${translateRef.current.x}px ${translateRef.current.y}px`;
+            e.currentTarget.parentElement?.scrollBy({
+                left: -e.movementX,
+                top: -e.movementY,
+            });
         }
     };
 
     return (
-        <div className={styles.boardWrapper}>
-            <div
-                className={styles.board}
-                style={{
-                    scale: `${scale}%`,
-                    cursor: isGrabbed ? 'grabbing' : 'default',
-                }}
-                onDragOver={(e) => e.preventDefault()}
-                onDragEnter={(e) => e.preventDefault()}
-                onDrop={onDropHandler}
-                onMouseDown={onMouseDownHandler}
-                onMouseUp={onMouseUpHandler}
-                onMouseMove={onMouseMoveHandler}
-            >
-                {notes.map((note) => (
-                    <Note {...note} key={note.id} />
-                ))}
+        <div className={styles.wrapper}>
+            <div className={styles.boardWrapper} ref={boardWrapperRef}>
+                <div
+                    className={styles.board}
+                    style={{
+                        scale: `${scale}%`,
+                        cursor: isGrabbed ? 'grabbing' : 'default',
+                    }}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDragEnter={(e) => e.preventDefault()}
+                    onDrop={onDropHandler}
+                    onMouseDown={onMouseDownHandler}
+                    onMouseUp={onMouseUpHandler}
+                    onMouseMove={onMouseMoveHandler}
+                >
+                    {notes.map((note) => (
+                        <Note {...note} key={note.id} />
+                    ))}
+                </div>
             </div>
             <Zoom
                 scale={scale}

@@ -1,7 +1,11 @@
-.boardWrapper {
-    position: relative;
+.wrapper {
     height: 100%;
     width: 100%;
+}
+
+.boardWrapper {
+    height: inherit;
+    width: inherit;
     overflow: hidden;
 }
 
@@ -9,6 +13,7 @@
     position: relative;
     height: inherit;
     width: inherit;
+    transform-origin: 0 0;
     transition-property: scale;
     transition-duration: 0.2s;
 }
